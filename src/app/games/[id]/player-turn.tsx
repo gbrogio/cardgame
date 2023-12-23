@@ -37,7 +37,6 @@ export const PlayerTurn = () => {
 	const [randomNumber, setRandomNumber] = useState(0);
 
 	useEffect(() => {
-		console.log(game.battle);
 		if (game.battle) {
 			setIsPlayerTurn(false);
 			return;

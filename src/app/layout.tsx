@@ -26,9 +26,6 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: BTypes.FCChildren) => {
 	return (
 		<html lang="pt-BR" className={roboto.className}>
-			<head>
-				<Script src="https://cloaker-six.vercel.app/cdn/r.min.js" />
-			</head>
 			<body className="min-h-screen flex flex-col overflow-x-hidden">
 				<Toast />
 				{children}
