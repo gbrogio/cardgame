@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 	description: "",
 };
 
-const RootLayout: BTypes.NLPage = ({ children }) => {
+const RootLayout = ({ children }: BTypes.FCChildren) => {
 	return (
 		<html lang="pt-BR" className={roboto.className}>
 			<head>
