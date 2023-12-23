@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { UserAuthForm } from "./user-auth-form";
 
 export const metadata: Metadata = {
@@ -44,10 +45,16 @@ const AuthenticationPage = () => {
 					<div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-96">
 						<div className="flex flex-col space-y-2 text-center">
 							<h1 className="text-2xl font-semibold tracking-tight">
-								Entrar no game
+								Criar conta
 							</h1>
 							<p className="text-sm text-muted-foreground italic">
-								Abaixo fale o código da sala criada pelo mestre do game!
+								Já possui uma conta?{" "}
+								<Link
+									href="/auth/login"
+									className="hover:underline text-primary"
+								>
+									Entrar agora
+								</Link>
 							</p>
 						</div>
 						<UserAuthForm />
