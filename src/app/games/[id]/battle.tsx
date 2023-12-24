@@ -57,18 +57,18 @@ const CardPlayers = ({ getPlayer }: { getPlayer: (p: string) => void }) => {
 export const Battle = ({ disabled }: { disabled: any }) => {
 	const { saveGame, game, player } = useGameContext();
 	const supabase = createClientComponentClient();
-	const [open, setOpen] = useState(!!(player?.owner && game.battle));
+	const [open, setOpen] = useState(!!(player?.isOwner && game.battle));
 	const [playerWinner, setPlayerWinner] = useState<string | undefined>();
 	const [playerLooser, setPlayerLooser] = useState<string | undefined>();
 
 	useEffect(() => {
-		setOpen(!!(player?.owner && game.battle));
+		setOpen(!!(player?.isOwner && game.battle));
 	}, [game, player]);
 
 	return (
 		<>
 			<Dialog open={open}>
-				<DialogContent showCloseButton={false} className="max-w-7xl">
+				<DialogContent showCloseButton={false} className="max-w-7xl overflow-auto max-h-[70dvh]">
 					<DialogHeader>
 						<DialogTitle>Modo Batalha</DialogTitle>
 						<DialogDescription>
@@ -170,7 +170,7 @@ export const Battle = ({ disabled }: { disabled: any }) => {
 								toast.error(
 									"Não foi possivel entrar em batalha. Tente novamente.",
 								);
-							else setOpen(!!(player?.owner && game.battle));
+							else setOpen(!!(player?.isOwner && game.battle));
 						});
 				}}
 				className="fixed top-1/2 cursor-pointer -translate-y-1/2 bg-primary p-4 h-auto rounded-full shadow-md hover:scale-105 transition-all active:scale-95"

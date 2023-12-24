@@ -32,7 +32,10 @@ export const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
 				email,
 				password,
 			})
-			.then(() => router.push("/games"))
+			.then((res) => {
+        if (res.error) throw 'err'
+				router.push("/games");
+			})
 			.catch(() => {
 				toast.error(
 					"Ocorreu um erro ao entrar na sua conta! Verifique se as credenciais estão corretas.",

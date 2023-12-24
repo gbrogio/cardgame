@@ -21,9 +21,10 @@ type GameContext = {
 				money: number;
 				image: string;
 				round: number;
-				owner: boolean;
+				isOwner: boolean;
 		  }
 		| undefined;
+	isOwner: boolean;
 	saveGame: (newGame?: any) => GameContext["game"]["saves"];
 	handlePlayer: React.Dispatch<React.SetStateAction<GameContext["player"]>>;
 	handleDefaultGameState: React.Dispatch<
@@ -38,7 +39,7 @@ type GameContext = {
 			round: number;
 			rules: string;
 			target: string;
-      name: string
+			name: string;
 		}[];
 		players: {
 			city: string;
@@ -59,8 +60,8 @@ export const useGameContext = () => useContext(GameContext);
 export const GameProvider = ({
 	children,
 	game: gameDefault,
-	owner,
-}: BTypes.FCChildren & { game: any; owner: boolean }) => {
+	isOwner,
+}: BTypes.FCChildren & { game: any; isOwner: boolean }) => {
 	const supabase = createClientComponentClient();
 	const router = useRouter();
 	const [game, setGame] = useState<GameContext["game"]>(gameDefault);
@@ -85,7 +86,7 @@ export const GameProvider = ({
 		);
 		if (playerDefault) {
 			const player = game.players.find(({ city }) => city === playerDefault);
-			setPlayer(player ? { ...player, owner } : undefined);
+			setPlayer(player ? { ...player, isOwner } : undefined);
 		}
 	}, []);
 
@@ -124,10 +125,10 @@ export const GameProvider = ({
 
 					if (!playerDefault) return;
 					if (playerDefault) {
-						const player = game.players.find(
-							({ city }) => city === playerDefault,
+						const player = payload.new.players.find(
+							({ city }: any) => city === playerDefault,
 						);
-						setPlayer(player ? { ...player, owner } : undefined);
+						setPlayer(player ? { ...player, isOwner } : undefined);
 					}
 
 					if (
@@ -153,9 +154,10 @@ export const GameProvider = ({
 			player,
 			game,
 			saveGame,
+			isOwner,
 			handleDefaultGameState: setGame,
 		}),
-		[player, game],
+		[player, game, isOwner],
 	);
 
 	return <GameContext.Provider value={values}>{children}</GameContext.Provider>;

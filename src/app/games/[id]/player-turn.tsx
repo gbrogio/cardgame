@@ -41,8 +41,8 @@ export const PlayerTurn = () => {
 			setIsPlayerTurn(false);
 			return;
 		}
-		setIsPlayerTurn(player?.city === game.playerTurn);
 		if (player?.city === game.playerTurn) setOpenD3(player?.round === 3);
+		setIsPlayerTurn(player?.city === game.playerTurn);
 	}, [game, player]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: reason
@@ -194,7 +194,7 @@ export const PlayerTurn = () => {
 				rules: card.rule,
 				target: newPlayers[playerSelectedIndex].city,
 				round: 0,
-        name: card.name || 'Carta'
+				name: card.name || "Carta",
 			});
 
 		await supabase
@@ -220,7 +220,7 @@ export const PlayerTurn = () => {
 		<div className="h-full flex flex-col">
 			<Battle disabled={!isPlayerTurn} />
 
-			<Dialog open={openD3} onOpenChange={setOpenD3}>
+			<Dialog open={openD3}>
 				<DialogContent className="sm:max-w-[425px]">
 					<DialogHeader>
 						<DialogTitle>D3</DialogTitle>
@@ -231,7 +231,8 @@ export const PlayerTurn = () => {
 					<div className="flex flex-col space-y-4 my-8">
 						<Button
 							type="button"
-							onClick={() => setRandomNumber(getRandomNumber(1, 3))}
+							disabled={!!randomNumber}
+							onClick={() => setRandomNumber(getRandomNumber(1, 4))}
 						>
 							Rolar D20
 						</Button>
@@ -245,9 +246,15 @@ export const PlayerTurn = () => {
 						</span>
 					</div>
 					<DialogFooter>
-						<DialogTrigger>
-							<Button>Feito</Button>
-						</DialogTrigger>
+						<Button
+							disabled={!randomNumber}
+							onClick={() => {
+                setRandomNumber(0)
+								setOpenD3(false);
+							}}
+						>
+							Feito
+						</Button>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>

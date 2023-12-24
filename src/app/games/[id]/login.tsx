@@ -23,7 +23,7 @@ import { getRandomNumber } from "utils/get-random-number";
 const generator = new AvatarGenerator();
 
 export const Login = () => {
-	const { saveGame, player, game } = useGameContext();
+	const { saveGame, player, isOwner, handlePlayer, game } = useGameContext();
 	const router = useRouter();
 	const [randomNumber, setRandomNumber] = useState<number | undefined>();
 	const [isLoading, setIsLoading] = useState(false);
@@ -67,6 +67,7 @@ export const Login = () => {
 			justice: points,
 			money: points,
 			round: 0,
+      isOwner,
 		};
 
 		const newGame = {
@@ -98,6 +99,8 @@ export const Login = () => {
 						"Ocorreu um erro ao criar sua cidade! Tente novamente mais tarde.",
 					);
 				}
+
+        handlePlayer(newPlayer)
 
 				setOpen(false);
 			});

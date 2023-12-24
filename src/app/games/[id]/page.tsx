@@ -29,7 +29,7 @@ const GameClass = async ({ params }: { params: { id: string } }) => {
 	if (error || !game) return redirect("/");
 
 	return (
-		<GameProvider owner={game.owner === user.user?.id} game={game}>
+		<GameProvider isOwner={game.owner === user.user?.id} game={game}>
 			<main className="max-w-7xl w-full mx-auto p-4 pt-10 h-[calc(100dvh-6rem)] relative flex overflow-x-hidden">
 				<Login />
 				<div className="w-full flex flex-col p-4 overflow-y-auto">
